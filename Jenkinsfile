@@ -25,7 +25,14 @@ pipeline {
                 '''
             }
         }
-
+	stage('Docker Build') {
+	steps {
+		sh '''
+		echo "Building Docker image..."
+	        docker build -t shivam-file-encrypter .
+	        '''
+	    }
+	}
         stage('Archive Artifacts') {
             steps {
                 archiveArtifacts artifacts: 'Password Protection/build/*.jar', fingerprint: true
