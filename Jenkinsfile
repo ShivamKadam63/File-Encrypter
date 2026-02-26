@@ -3,12 +3,6 @@ pipeline {
 
     stages {
 
-        stage('Clone Info') {
-            steps {
-                echo "Pipeline running for ShivamKadam63 repository"
-            }
-        }
-
         stage('Build') {
             steps {
                 sh '''
@@ -21,9 +15,20 @@ pipeline {
             }
         }
 
+        stage('Package') {
+            steps {
+                sh '''
+                echo "Packaging JAR..."
+                cd "Password Protection/build"
+                jar cf FileEncrypter.jar *.class
+                echo "JAR created successfully"
+                '''
+            }
+        }
+
         stage('Archive Artifacts') {
             steps {
-                archiveArtifacts artifacts: 'Password Protection/build/*.class', fingerprint: true
+                archiveArtifacts artifacts: 'Password Protection/build/*.jar', fingerprint: true
             }
         }
     }
