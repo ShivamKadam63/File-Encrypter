@@ -6,7 +6,7 @@ node {
             echo "Building Java project..."
             echo "Listing workspace contents:"
             ls
-            cd PasswordProtection
+            cd "Password Protection"
             mkdir -p build
             javac -d build src/*.java
             echo "Build successful"
@@ -16,7 +16,7 @@ node {
         stage('Test') {
             sh '''
             echo "Running JUnit tests for File-Encrypter..."
-            cd PasswordProtection
+            cd "Password Protection"
 
             if [ ! -f junit-platform-console-standalone.jar ]; then
                 echo "Downloading JUnit..."
@@ -38,7 +38,7 @@ node {
         stage('Deploy') {
             sh '''
             echo "Deploying (Packaging) File-Encrypter Application..."
-            cd PasswordProtection
+            cd "Password Protection"
             jar cf FileEncrypter.jar -C build .
             echo "Deployment successful - Artifact ready"
             '''
@@ -51,3 +51,4 @@ node {
         throw e
     }
 }
+
